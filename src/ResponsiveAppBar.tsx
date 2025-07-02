@@ -16,15 +16,16 @@ import DialogContent from '@mui/material/DialogContent';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useTheme } from '@mui/material/styles';
-
-interface ResponsiveAppBarProps {
-  isDark: boolean;
-  onToggleTheme: () => void;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from './store';
+import { toggleDarkMode } from './state/slice';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout', 'Settings'];
 
-function ResponsiveAppBar({ isDark, onToggleTheme }: ResponsiveAppBarProps) {
+function ResponsiveAppBar() {
+  const dispatch = useDispatch();
+  const isDark = useSelector((state: RootState) => state.global.isDarkMode);
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const theme = useTheme();
@@ -46,8 +47,16 @@ function ResponsiveAppBar({ isDark, onToggleTheme }: ResponsiveAppBarProps) {
     setSettingsOpen(false);
   };
 
+  const onToggleTheme = () => {
+    dispatch(toggleDarkMode());
+  };
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, color: '#4fc3f7' }} elevation={1}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: theme.palette.background.paper, color: '#4fc3f7' }}
+      elevation={1}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <FitnessCenterIcon sx={{ mr: 1, color: '#4fc3f7' }} />
