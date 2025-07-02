@@ -11,7 +11,7 @@ const UserDashboard: React.FC = () => {
   const [tab, setTab] = React.useState(0);
   const theme = useTheme();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 

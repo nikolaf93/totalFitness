@@ -15,16 +15,11 @@ const BarContainer = styled.div`
 
 const DashboardContainer = styled.div``;
 
-interface AppProps {
-  isDark: boolean;
-  onToggleTheme: () => void;
-}
-
-function App({ isDark, onToggleTheme }: AppProps) {
+function App() {
   return (
     <Wrapper>
       <BarContainer>
-        <ResponsiveAppBar isDark={isDark} onToggleTheme={onToggleTheme} />
+        <ResponsiveAppBar />
       </BarContainer>
       <DashboardContainer>
         <UserDashboard />

@@ -1,9 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
+import globalReducer from './state/slice';
 
-// Placeholder root reducer (empty for now)
-const rootReducer = (state = {}, _action: any) => state;
+// Combine reducers
+const rootReducer = combineReducers({
+  global: globalReducer,
+});
 
 // Placeholder root saga
 function* rootSaga() {
