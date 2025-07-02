@@ -18,7 +18,7 @@ import Switch from '@mui/material/Switch';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from './store';
-import { toggleDarkMode } from './state/slice';
+import { toggleDarkMode, resetSettings } from './state/slice';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout', 'Settings'];
 
@@ -49,6 +49,10 @@ function ResponsiveAppBar() {
 
   const onToggleTheme = () => {
     dispatch(toggleDarkMode());
+  };
+
+  const onResetSettings = () => {
+    dispatch(resetSettings());
   };
 
   return (
@@ -115,6 +119,11 @@ function ResponsiveAppBar() {
                   control={<Switch checked={isDark} onChange={onToggleTheme} />}
                   label={isDark ? 'Dark Theme' : 'Light Theme'}
                 />
+                <Box sx={{ mt: 2, textAlign: 'right' }}>
+                  <button onClick={onResetSettings} style={{ padding: '6px 16px', borderRadius: 4, border: 'none', background: '#1976d2', color: '#fff', cursor: 'pointer' }}>
+                    Reset Settings
+                  </button>
+                </Box>
               </DialogContent>
             </Dialog>
           </Box>
