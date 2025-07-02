@@ -10,23 +10,44 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import { useTheme } from '@mui/material/styles';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+interface ResponsiveAppBarProps {
+  isDark: boolean;
+  onToggleTheme: () => void;
+}
 
-function ResponsiveAppBar() {
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout', 'Settings'];
+
+function ResponsiveAppBar({ isDark, onToggleTheme }: ResponsiveAppBarProps) {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const theme = useTheme();
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+  const handleSettingsClick = () => {
+    setSettingsOpen(true);
+    handleCloseUserMenu();
+  };
+
+  const handleSettingsClose = () => {
+    setSettingsOpen(false);
+  };
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#fff', color: '#4fc3f7' }} elevation={1}>
+    <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper, color: '#4fc3f7' }} elevation={1}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <FitnessCenterIcon sx={{ mr: 1, color: '#4fc3f7' }} />
@@ -70,11 +91,23 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={setting === 'Settings' ? handleSettingsClick : handleCloseUserMenu}
+                >
                   <Typography sx={{ textAlign: 'center', color: '#1976d2' }}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
+            <Dialog open={settingsOpen} onClose={handleSettingsClose}>
+              <DialogTitle>Settings</DialogTitle>
+              <DialogContent>
+                <FormControlLabel
+                  control={<Switch checked={isDark} onChange={onToggleTheme} />}
+                  label={isDark ? 'Dark Theme' : 'Light Theme'}
+                />
+              </DialogContent>
+            </Dialog>
           </Box>
         </Toolbar>
       </Container>

@@ -1,35 +1,36 @@
-// import AppBar from '@mui/material/AppBar';
 import styled from 'styled-components';
 import ResponsiveAppBar from './ResponsiveAppBar';
-// import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
+import UserDashboard from './UserDashboard';
 
-const BarContainer = styled.div`
-  top: 0px;
+const Wrapper = styled.div`
   position: absolute;
+  top: 0px;
   width: 100%;
 `;
 
-function App() {
-  return (
-    <BarContainer>
-      <ResponsiveAppBar />
-    </BarContainer>
-  );
-  // return (
+const BarContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
-  //   <AppBar position="static" color="default" elevation={1} sx={{ backgroundColor: '#fff' }}>
-  //     <Toolbar>
-  //       <Typography
-  //         variant="h5"
-  //         component="div"
-  //         sx={{ fontWeight: 'bold', color: '#4fc3f7', flexGrow: 0 }}
-  //       >
-  //         TotalFitness
-  //       </Typography>
-  //     </Toolbar>
-  //   </AppBar>
-  // );
+const DashboardContainer = styled.div``;
+
+interface AppProps {
+  isDark: boolean;
+  onToggleTheme: () => void;
+}
+
+function App({ isDark, onToggleTheme }: AppProps) {
+  return (
+    <Wrapper>
+      <BarContainer>
+        <ResponsiveAppBar isDark={isDark} onToggleTheme={onToggleTheme} />
+      </BarContainer>
+      <DashboardContainer>
+        <UserDashboard />
+      </DashboardContainer>
+    </Wrapper>
+  );
 }
 
 export default App;
